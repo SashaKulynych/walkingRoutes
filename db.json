@@ -1,0 +1,27 @@
+{
+  "users": [
+    {
+      "email": "sasha@mail.ru",
+      "password": "111",
+      "id": 1
+    },
+    {
+      "email": "aaa@aa.aaa",
+      "password": "aaa",
+      "id": 2
+    }
+  ],
+  "categories": [
+    {
+      "name": "Walk",
+      "id": 1
+    },
+    {
+      "name": "Go",
+      "id": 2
+    }
+  ],
+  "routes": [],
+  "comments": [],
+  "favorites": []
+}

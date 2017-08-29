@@ -1,0 +1,165 @@
+.mainPageStyle .mainBlock{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: auto;
+    background-color: #2e353d;
+}
+.mainPageStyle .blockCenter{
+    width: 500px;
+    height: 250px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+.mainPageStyle input[type="button"]:not(.default), input[type="submit"]:not(.default) {
+    -webkit-border-radius: 3px;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 3px;
+    -moz-background-clip: padding;
+    border-radius: 3px;
+    background-clip: padding-box;
+    -webkit-transition: color 0.2s ease, border 0.2s ease, background 0.2s ease, -webkit-box-shadow 0.2s ease;
+    -moz-transition: color 0.2s ease, border 0.2s ease, background 0.2s ease, -moz-box-shadow 0.2s ease;
+    -o-transition: color 0.2s ease, border 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    transition: color 0.2s ease, border 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    margin: 0 7px;
+    display: inline-block;
+    min-width: 144px;
+    max-width: 100%;
+    padding: 15px 25px;
+    font-family: "Arial", "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    line-height: 1;
+    border-color: white;
+    border-width: 1px;
+    border-style: solid;
+    background-color: #2e353d;
+    color: white;
+}
+.mainPageStyle .form {
+    zoom: 1;
+    display: block;
+    width: auto;
+    padding: 25px 0 0;
+}
+.mainPageStyle .form:before,
+.mainPageStyle .form:after {
+    content: "";
+    display: table;
+}
+.mainPageStyle .form:after {
+    clear: both;
+}
+.mainPageStyle .form .form-group {
+    zoom: 1;
+    position: relative;
+    margin-bottom: 25px;
+}
+.mainPageStyle .form .form-group:before,
+.mainPageStyle .form .form-group:after {
+    content: "";
+    display: table;
+}
+.mainPageStyle.form .form-group:after {
+    clear: both;
+}
+.mainPageStyle .form .form-group:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+.mainPageStyle .form .form-group[class*="col-"] input[type=text],
+.mainPageStyle .form .form-group[class*="col-"] input[type=email],
+.mainPageStyle .form .form-group[class*="col-"] input[type=password] {
+    display: inline-block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+}
+.mainPageStyle .form .form-control {
+    -webkit-border-radius: 0;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 0;
+    -moz-background-clip: padding;
+    border-radius: 0;
+    background-clip: padding-box;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    height: auto;
+    font-size: 17px;
+    font-weight: 300;
+    background-color: #ffffff;
+    border-style: solid;
+    border-width: 1px 1px 1px 3px;
+    border-top-color: #d7d7d7;
+    border-right-color: #d7d7d7;
+    border-bottom-color: #d7d7d7;
+}
+.mainPageStyle input[type=text],
+.mainPageStyle input[type=email],
+.mainPageStyle input[type=password] {
+    -webkit-transition: color 0.2s ease, background 0.3s ease;
+    -moz-transition: color 0.2s ease, background 0.3s ease;
+    -o-transition: color 0.2s ease, background 0.3s ease;
+    transition: color 0.2s ease, background 0.3s ease;
+    -webkit-border-radius: 0;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 0;
+    -moz-background-clip: padding;
+    border-radius: 0;
+    background-clip: padding-box;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    margin: 0;
+    vertical-align: top;
+    display: inline-block;
+    width: 100%;
+    font-size: 17px;
+    color: black;
+    background-color: #ffffff;
+    border-style: solid;
+    border-width: 1px 1px 1px 3px;
+    border-top-color: #d7d7d7;
+    border-right-color: #d7d7d7;
+    border-bottom-color: #d7d7d7;
+    outline: none;
+}
+.mainPageStyle input[type=text]:hover,
+.mainPageStyle input[type=email]:hover,
+.mainPageStyle input[type=password]:hover {
+    color: #000000;
+}
+.mainPageStyle input[type=text]:focus,
+.mainPageStyle input[type=email]:focus,
+.mainPageStyle input[type=password]:focus {
+    outline: none;
+    border-left-color: steelblue;
+}
+.mainPageStyle .well h3 {
+    color: #2e353d;
+    text-shadow:
+            -1px -1px 0 #fff,
+            1px -1px 0 #fff,
+            -1px 1px 0 #fff,
+            1px 1px 0 #fff;
+    transition: all 1s;
+    cursor: pointer;
+}
+.mainPageStyle input[type=button]:hover{
+    border-color: #2e353d;
+    color:#2e353d;
+    background-color: white;
+    transition: all 1s;
+    cursor: pointer;
+}
