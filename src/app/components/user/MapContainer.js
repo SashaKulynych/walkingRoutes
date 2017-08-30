@@ -1,13 +1,17 @@
 import React,{Component} from "react";
 import { withGoogleMap, GoogleMap, Marker,Polyline } from "react-google-maps";
+import ViewMarkers from './ViewMarkers'
 const GettingStartedGoogleMap = withGoogleMap(props => (
     <GoogleMap
         ref={props.onMapLoad}
         defaultZoom={14}
-        defaultCenter={{ lat: 49.444356503879916, lng: 32.05780506134033}}
+        center={props.centerMap}
         onClick={props.onMapClick}
     >
-        {props.markers}
+        <ViewMarkers
+            markers = {props.markers}
+        />
+        {props.markersView}
         <Polyline
             path={props.flightPlanCoordinates}
             geodesic={true}
@@ -19,12 +23,12 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
         />
     </GoogleMap>
 ));
+
 export default class MapContainer extends Component {
     constructor(props){
         super(props);
-        this.state = {
-            markers: [],
-            flightPlanCoordinates:[]
+        this.state ={
+            markersView:[]
         };
         this.handleMapLoad = this.handleMapLoad.bind(this);
         this.handleMapClick = this.handleMapClick.bind(this);
@@ -38,35 +42,27 @@ export default class MapContainer extends Component {
     }
 
     handleMapClick(event) {
-        let nextMarkers = this.state.markers;
+        document.getElementsByClassName('card')[0].style.opacity = '0';
+        document.getElementsByClassName('card')[0].style.visibility = 'hidden';
+        document.getElementsByClassName('card')[0].style.transition = 'opacity 0.3s, visibility 0s linear 0.3s';
+        let nextMarkers = this.props.markers;
+        console.log(nextMarkers);
         nextMarkers.push(
-            <Marker draggable ='false'
-                    position = {event.latLng}
-                    defaultAnimation= {2}
-                    key= {Date.now()}
-                    onDrag={(e)=>this.markerDrag(e)}
-                    onRightClick={(e) => this.handleMarkerRightClick(e)}
-            />
+            {
+                position: event.latLng,
+                key:Date.now()
+            }
         );
-        console.log(nextMarkers)
-        const nexlines = [...this.state.flightPlanCoordinates,event.latLng];
-        this.setState({
-            markers: nextMarkers,
-            flightPlanCoordinates:nexlines
-        });
-        console.log(google.maps.geometry.spherical.computeLength(nexlines));
-
+        const nextLines = [...this.props.flightPlanCoordinates,event.latLng];
+        this.props.routeData(nextMarkers,nextLines);
     }
     markerDrag(e){
 
     }
     handleMarkerRightClick(targetMarker) {
-        const nextMarkers = this.state.markers.filter(marker => marker.props.position !== targetMarker.latLng);
-        const nextLines = this.state.flightPlanCoordinates.filter(line =>line !== targetMarker.latLng);
-        this.setState({
-            markers: nextMarkers,
-            flightPlanCoordinates:nextLines
-        });
+        const nextMarkers = this.props.markers.filter(marker => marker.props.position !== targetMarker.latLng);
+        const nextLines = this.props.flightPlanCoordinates.filter(line =>line !== targetMarker.latLng);
+        this.props.routeData(nextMarkers,nextLines);
     }
     render(){
         return(
@@ -79,10 +75,12 @@ export default class MapContainer extends Component {
                 }
                 onMapLoad={this.handleMapLoad}
                 onMapClick={this.handleMapClick}
-                markers={this.state.markers}
-                flightPlanCoordinates = {this.state.flightPlanCoordinates}
+                markers={this.props.markers}
+                flightPlanCoordinates = {this.props.flightPlanCoordinates}
                 onMarkerRightClick={this.handleMarkerRightClick}
                 MarkerDrag = {this.markerDrag}
+                centerMap = {this.props.centerMap}
+                markersView = {this.state.markersView}
             />
         )
     }

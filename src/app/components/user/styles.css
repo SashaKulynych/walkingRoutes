@@ -116,9 +116,12 @@
         line-height: 50px !important;
     }
 }
-@media (min-width: 767px) {
+#userPageStyle .nav-side-menu .menu-list .menu-content {
+    display: block;
+}
+@media (max-width: 767px) {
     #userPageStyle .nav-side-menu .menu-list .menu-content {
-        display: block;
+        width:170px;
     }
 }
 .MainBlock{
@@ -165,4 +168,39 @@
 }
 #userPageStyle .ButtonStyle{
     margin-top: 5px;
+}
+#userPageStyle .deleteIcon{
+    float:right;
+    padding: 8px;
+    z-index: 5;
+    margin-top: -30px;
+}
+#userPageStyle .overflow{
+    overflow-y: auto;
+    min-height: 0px;
+}
+#userPageStyle .card{
+    position: absolute;
+    bottom:0;
+    border-radius: 0;
+    color:white;
+    background:#2e353d;
+    border-top-right-radius: 5px;
+    z-index: 1000;
+    opacity: 0;
+    min-width: 300px;
+    min-height: 150px;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0s linear 0.3s;
+}
+#userPageStyle .card-block{
+    padding: 10px;
+}
+#userPageStyle .refreshButton{
+    padding: 10px;
+}
+#userPageStyle .closeRouteInfo{
+    float: right;
+    margin-right: -10px;
+    cursor: pointer;
 }
