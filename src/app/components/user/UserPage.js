@@ -4,39 +4,45 @@ import {store} from '../../index';
 import {push} from 'react-router-redux';
 import { connect } from 'react-redux';
 
-import MapContainer from './MapContainer';
+import MapContainer from './Map/MapContainer';
 
 import UserPageMenuView from './UserPageMenuView'
-import RouteInfo from './RouteInfo'
+import RouteInfoView from './RouteInfo/RouteInfoView'
 
 import AlertContainer from 'react-alert';
-
+import {fetchName,checkBoxFavorite,RouteInfoDisplay,ViewRouteData} from './requestFunction';
 import "./styles.css";
 
 class UserPage extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state={
-            inputCategoryName:"",
-            listCategory:[],
-            listRoute:[],
-            selectOption:[],
+        this.state = {
+            userInfo:{},
+            inputCategoryName: "",
+            listCategory: [],
+            listRoute: [],
+            listFavorites:[],
+            myListRoute:[],
+            selectOption: [],
+            searchRoutes:[],
             markers: [],
-            flightPlanCoordinates:[],
-            routeName:'',
-            routeDest:'',
-            routeCategory:'0',
-            routeLength:'',
-            textRouteName:'',
-            textRouteDest:'',
-            textRouteCategory:'',
-            textRouteLength:'',
-            centerMap:{ lat: 49.444356503879916, lng: 32.05780506134033}
+            flightPlanCoordinates: [],
+            routeName: '',
+            routeDest: '',
+            routeCategory: '0',
+            routeLength: '',
+            textRouteName: '',
+            textRouteDest: '',
+            textRouteCategory: '',
+            textRouteLength: '',
+            showRouteData: 0,
+            centerMap: {lat: 49.444356503879916, lng: 32.05780506134033},
+            favorite:false,
+            checkedRouteId:0,
+            commentTextarea:'',
+            rating:1,
+            searchInput:''
         };
-        this.handleInputCategoryName = this.handleInputCategoryName.bind(this);
-        this.handleInputRouteName = this.handleInputRouteName.bind(this);
-        this.handleTextarea = this.handleTextarea.bind(this);
-        this.handleCategory = this.handleCategory.bind(this);
         this.addCategory = this.addCategory.bind(this);
         this.deleteData = this.deleteData.bind(this);
         this.routeData = this.routeData.bind(this);
@@ -44,80 +50,135 @@ class UserPage extends Component {
         this.getRouteData = this.getRouteData.bind(this);
         this.exit = this.exit.bind(this);
         this.refresh = this.refresh.bind(this);
-        this.closeRouteInfo = this.closeRouteInfo.bind(this);
         this.resourceList = this.resourceList.bind(this);
         this.handleMarkers = this.handleMarkers.bind(this);
+        this.handleCheckboxFavorite = this.handleCheckboxFavorite.bind(this);
+        this.handleState = this.handleState.bind(this);
+        this.favoriteClick = this.favoriteClick.bind(this);
+        this.addComment = this.addComment.bind(this);
+        this.handleRating = this.handleRating.bind(this);
+        this.myRoutes = this.myRoutes.bind(this);
+        this.search = this.search.bind(this);
     }
-    componentDidMount(){
+
+    componentDidMount() {
         let value = JSON.parse(localStorage.getItem('USER_SUCCESS'));
-        if(value!=null){
-            store.dispatch({type:'USER_SUCCESS', payload:value});
-        }else store.dispatch(push('/'));
+        if (value != null) {
+            store.dispatch({type: 'USER_SUCCESS', payload: value});
+        } else store.dispatch(push('/'));
+        this.setState({userInfo:value});
+        this.myRoutes(value);
         this.resourceList('categories');
         this.resourceList('routes');
-
+        this.resourceList('favorites');
     }
-    exit(){
-        localStorage.setItem('USER_SUCCESS',null);
+
+    exit() {
+        localStorage.setItem('USER_SUCCESS', null);
         store.dispatch(push('/'));
     }
-    handleMarkers(value){
+
+    handleMarkers(value) {
         this.setState({
-            markers:value
+            markers: value
         });
     }
-    handleCategory(event){
+    handleState(event,state){
         this.setState({
-            routeCategory:event.target.value
+            [state]: event.target.value
         });
     }
-    handleTextarea(event){
+    handleRating(e){
         this.setState({
-            routeDest:event.target.value
+            rating:e
         });
     }
-    handleInputRouteName(event){
+
+    handleCheckboxFavorite(event){
+        checkBoxFavorite(this.state.checkedRouteId);
+        this.resourceList('favorites');
         this.setState({
-            routeName:event.target.value
+            favorite: event.target.checked
         });
     }
-    handleInputCategoryName(event){
-        this.setState({
-            inputCategoryName:event.target.value
-        });
-    }
-    deleteData(id,resource){
+    deleteData(id, resource) {
         let http = new XMLHttpRequest();
-        let url = 'http://localhost:3000/'+resource+'/'+id;
+        let url = 'http://localhost:3000/' + resource + '/' + id;
         console.log(url);
-        http.open("DELETE", url,false);
+        http.open("DELETE", url, false);
         http.setRequestHeader("Content-Type", "application/json");
         http.send(null);
-        this.msg.show('One of '+ resource+' Deleted!', {
+        this.msg.show('One of ' + resource + ' Deleted!', {
             time: 3000,
             type: 'success'
         });
         this.resourceList(resource);
+        this.myRoutes(this.state.userInfo)
     }
-    routeData(nextMarkers,nextLines){
+
+    routeData(nextMarkers, nextLines) {
         this.setState({
             markers: nextMarkers,
-            flightPlanCoordinates:nextLines,
-            routeLength: google.maps.geometry.spherical.computeLength(nextLines)
+            flightPlanCoordinates: nextLines
         });
     }
-    getRouteData(data){
-        document.getElementsByClassName('card')[0].style.opacity = '1';
-        document.getElementsByClassName('card')[0].style.visibility = 'visible';
-        document.getElementsByClassName('card')[0].style.transitionDelay = '0s';
+    favoriteClick(id){
+        let http = new XMLHttpRequest();
+        let resourceList = '';
+        let url = 'http://localhost:3000/routes/'+id;
+        http.open('GET', url,false);
+        http.setRequestHeader("Content-Type", "application/json");
+        http.onload = ()=> {
+            if (http.readyState == 4 && http.status == 200)
+                if (http.response !=''){
+                    resourceList = http.response;
+                    this.getRouteData(JSON.parse(resourceList));
+                }
+        };
+        http.send();
+    }
+    getRouteData(data) {
+        RouteInfoDisplay(true);
+        let routeData = ViewRouteData(data);
         this.setState({
-            centerMap:data.flightPlanCoordinates[0],
-            textRouteName:data.name,
-            textRouteDest:data.description,
-            textRouteCategory:data.category,
-            textRouteLength:data.length,
-            markers:data.markers,
-            flightPlanCoordinates:data.flightPlanCoordinates,
+            checkedRouteId: routeData.checkedRouteId,
+            textRouteName: routeData.textRouteName,
+            textRouteDest: routeData.textRouteDest,
+            textRouteLength: routeData.textRouteLength,
+            textRouteCategory: routeData.textRouteCategory,
+            centerMap: routeData.centerMap,
+            markers: routeData.markers,
+            flightPlanCoordinates:routeData.flightPlanCoordinates ,
+            favorite: routeData.favorite,
+            commentTextarea:""
+        })
+    }
+    myRoutes(value){
+        let http = new XMLHttpRequest();
+        let resourceList='';
+        let url = 'http://localhost:3000/routes?user='+value.id;
+        http.open('GET', url,false);
+        http.setRequestHeader("Content-Type", "application/json");
+        http.onload = ()=> {
+            if (http.readyState == 4 && http.status == 200)
+                if (http.response !='') resourceList = http.response;
+        };
+        http.send();
+        let list = JSON.parse(resourceList);
+        const listView = list.map((data)=> {
+            return (
+                <div key={data.id}>
+                    <li onClick={() => this.getRouteData(data)}>{data.name}</li>
+                    <i onClick={() => {
+                        this.deleteData(data.id, "routes")
+                    }}
+                       className="fa fa-times fa-lg deleteIcon"/>
+                </div>
+            );
+            }
+        );
+        this.setState({
+            myListRoute:listView
         })
     }
     resourceList(resource){
@@ -133,55 +194,100 @@ class UserPage extends Component {
         http.send();
         let list = JSON.parse(resourceList);
         const listView = list.map((data)=> {
-                if (resource == 'categories'){
-                    return (
-                        <div key={data.id}>
-                            <li>{data.name}</li>
-                            <i onClick={() => {this.deleteData(data.id, "categories")}}
-                               className="fa fa-times fa-lg deleteIcon"/>
-                        </div>
-                    );
-                }
-                if (resource == 'routes'){
-                    return (
-                        <div key={data.id}>
-                            <li onClick={() => this.getRouteData(data)}>{data.name}</li>
-                            <i onClick={() => {this.deleteData(data.id, "routes")}}
-                               className="fa fa-times fa-lg deleteIcon"/>
-                        </div>
-                    );
+                switch (resource) {
+                    case 'categories': {
+                        return (
+                            <div key={data.id}>
+                                <li>{data.name}</li>
+                                <i onClick={() => {
+                                    this.deleteData(data.id, "categories")
+                                }}
+                                   className="fa fa-times fa-lg deleteIcon"/>
+                            </div>
+                        );
+                    }
+                        break;
+                    case 'routes': {
+                        return (
+                            <div key={data.id}>
+                                <li onClick={() => this.getRouteData(data)}>{data.name}</li>
+                                <i onClick={() => {
+                                    this.deleteData(data.id, "routes")
+                                }}
+                                   className="fa fa-times fa-lg deleteIcon"/>
+                            </div>
+                        );
+                    }
+                        break;
+                    case 'favorites': {
+                        return (
+                            <div key={data.id}>
+                                <li onClick={() => this.favoriteClick(data.route)}>{fetchName(data.route, "routes","name")}</li>
+                                <i onClick={() => {
+                                    this.deleteData(data.id, "favorites")
+                                }}
+                                   className="fa fa-times fa-lg deleteIcon"/>
+                            </div>
+                        );
+                    }
+                        break;
                 }
             }
         );
-        if(resource=='routes'){
-            this.setState({
-                listRoute:listView
-            });
-        }
-        if(resource=='categories'){
-            const optionView = list.map((data)=> {
-                return (
-                    <option key={data.id} value={data.id}>{data.name}</option>
-                );
+        switch (resource){
+            case 'routes':{
+                this.setState({listRoute:listView});
             }
-            );
-            this.setState({
-                selectOption:optionView,
-                listCategory:listView
-            });
+            break;
+            case 'favorites':{
+                this.setState({listFavorites:listView});
+            }
+            break;
+            case 'categories':{
+                const optionView = list.map((data)=> {
+                        return (
+                            <option key={data.id} value={data.id}>{data.name}</option>
+                        );
+                    }
+                );
+                this.setState({
+                    selectOption:optionView,
+                    listCategory:listView,
+                });
+            }
+            break;
         }
     }
     refresh(){
-        this.setState({
-            markers: [],
-            flightPlanCoordinates:[],
-        });
-        this.closeRouteInfo();
+        this.setState({markers: [], flightPlanCoordinates:[]});
+        RouteInfoDisplay(false);
     }
-    closeRouteInfo(){
-        document.getElementsByClassName('card')[0].style.opacity = '0';
-        document.getElementsByClassName('card')[0].style.visibility = 'hidden';
-        document.getElementsByClassName('card')[0].style.transition = 'opacity 0.3s, visibility 0s linear 0.3s';
+    addComment(){
+        if(this.state.commentTextarea!=""){
+            let http = new XMLHttpRequest();
+            http.open("POST", 'http://localhost:3000/comments');
+            http.setRequestHeader("Content-Type", "application/json");
+            http.send(
+                JSON.stringify({
+                    "route": this.state.checkedRouteId,
+                    "description": this.state.commentTextarea,
+                    "user":this.state.userInfo.id,
+                    "rating":this.state.rating
+                })
+            );
+            this.msg.show('Comment Add', {
+                time: 3000,
+                type: 'success'
+            });
+        }
+        else{
+            this.msg.show('Enter a comment', {
+                time: 3000,
+                type: 'error',
+                icon: <img src="http://allbasketball.org/templates/AB2014/images/alert.png" />
+            });
+        }
+
     }
     addRoute(){
         if(this.state.markers.length==0||this.state.flightPlanCoordinates.length==0)
@@ -192,6 +298,15 @@ class UserPage extends Component {
                     icon: <img src="http://allbasketball.org/templates/AB2014/images/alert.png" />
                 })
             );
+        if(this.state.routeCategory==0){
+            return(
+                this.msg.show('Set category!', {
+                    time: 3000,
+                    type: 'error',
+                    icon: <img src="http://allbasketball.org/templates/AB2014/images/alert.png" />
+                })
+            );
+        }
         let xml = new XMLHttpRequest();
         xml.open("POST", 'http://localhost:3000/routes',false);
         xml.setRequestHeader("Content-Type", "application/json");
@@ -202,10 +317,12 @@ class UserPage extends Component {
                 "category": this.state.routeCategory,
                 "length": this.state.routeLength,
                 "markers":this.state.markers,
-                "flightPlanCoordinates": this.state.flightPlanCoordinates
+                "flightPlanCoordinates": this.state.flightPlanCoordinates,
+                "user": this.state.userInfo.id
             })
         );
         this.resourceList('routes');
+        this.myRoutes(this.state.userInfo)
         this.msg.show('Route Add!', {
             time: 3000,
             type: 'success'
@@ -244,6 +361,46 @@ class UserPage extends Component {
         };
         http.send();
     }
+    search(e,value){
+        let http = new XMLHttpRequest();
+        let resourceList='';
+        let url ='';
+        if(value=="input")url = 'http://localhost:3000/routes?q='+e.target.value;
+        else if(value=="select")url = 'http://localhost:3000/routes?category='+e.target.value;
+        if(e.target.value=='') url='http://localhost:3000/routes?q=youdonthaveanyroutesforyoursearch';
+        http.open('GET', url,false);
+        http.setRequestHeader("Content-Type", "application/json");
+        http.onload = ()=> {
+            if (http.readyState == 4 && http.status == 200)
+               resourceList = http.response;
+        };
+        http.send();
+        let list = JSON.parse(resourceList);
+        const listView = list.map((data)=> {
+                        return (
+                            <div key={data.id}>
+                                <li onClick={() => this.getRouteData(data)}>{data.name}</li>
+                                <i onClick={() => {
+                                    this.deleteData(data.id, "routes")
+                                }}
+                                   className="fa fa-times fa-lg deleteIcon"/>
+                            </div>
+                        );
+            }
+        );
+        if(value=="select"){
+            this.setState({
+                searchRoutes:listView
+            })
+        }
+        if(value=="input"){
+            this.setState({
+                searchInput:e.target.value,
+                searchRoutes:listView
+            })
+        }
+
+    }
     render(){
         const alertOptions = {
             offset: 14,
@@ -257,26 +414,36 @@ class UserPage extends Component {
                 <div className="MainBlock">
                     <div className="FirstBlock">
                         <UserPageMenuView
+                            userInfo = {this.state.userInfo}
                             inputCategoryName={this.state.inputCategoryName}
-                            handleInputCategoryName = {this.handleInputCategoryName}
-                            handleInputRouteName = {this.handleInputRouteName}
-                            handleTextarea = {this.handleTextarea}
-                            handleCategory = {this.handleCategory}
                             addCategory = {this.addCategory}
                             addRoute = {this.addRoute}
                             listCategory = {this.state.listCategory}
                             listRoute = {this.state.listRoute}
+                            listFavorites = {this.state.listFavorites}
+                            myListRoute = {this.state.myListRoute}
                             selectOption = {this.state.selectOption}
                             exit = {this.exit}
                             refresh = {this.refresh}
+                            handleState = {this.handleState}
+                            searchInput = {this.state.searchInput}
+                            search = {this.search}
+                            searchRoutes = {this.state.searchRoutes}
                         />
                     </div>
                     <div className="SecondBlock">
-                        <RouteInfo
-                            textRouteName = {this.state.textRouteName}
-                            textRouteCategory = {this.state.textRouteCategory}
-                            textRouteDest = {this.state.textRouteDest}
-                            closeRouteInfo = {this.closeRouteInfo}
+                        <RouteInfoView
+                            textRouteName= {this.state.textRouteName}
+                            textRouteCategory= {this.state.textRouteCategory}
+                            textRouteDest= {this.state.textRouteDest}
+                            favorite = {this.state.favorite}
+                            handleCheckboxFavorite = {this.handleCheckboxFavorite}
+                            commentTextarea = {this.state.commentTextarea}
+                            addComment = {this.addComment}
+                            handleState = {this.handleState}
+                            checkedRouteId = {this.state.checkedRouteId}
+                            rating = {this.state.rating}
+                            handleRating = {this.handleRating}
                         />
                         <MapContainer
                             routeData = {this.routeData}

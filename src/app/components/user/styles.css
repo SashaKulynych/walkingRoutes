@@ -176,8 +176,7 @@
     margin-top: -30px;
 }
 #userPageStyle .overflow{
-    overflow-y: auto;
-    min-height: 0px;
+
 }
 #userPageStyle .card{
     position: absolute;
@@ -186,7 +185,7 @@
     color:white;
     background:#2e353d;
     border-top-right-radius: 5px;
-    z-index: 1000;
+    z-index: 1;
     opacity: 0;
     min-width: 300px;
     min-height: 150px;
@@ -203,4 +202,40 @@
     float: right;
     margin-right: -10px;
     cursor: pointer;
+}
+#userPageStyle .viewAllComments{
+    text-align: center;
+    margin: 5px;
+    font-size: 13px;
+    cursor: pointer;
+    color:white;
+}
+#userPageStyle .viewAllComments:hover{
+    color:deepskyblue;
+}
+.modal-backdrop{
+    z-index:0;
+}
+.modal-content{
+    color:black
+}
+.rating{
+    margin:-20px;
+    text-align: center;
+}
+.stylish-input-group .input-group-addon{
+    background: white !important;
+}
+.stylish-input-group .form-control{
+    border-right:0;
+    box-shadow:0 0 0;
+    border-color:#ccc;
+}
+.stylish-input-group button{
+    border:0;
+    background:transparent;
+}
+.searchRoutes{
+    max-height: 150px;
+    overflow: auto;
 }
