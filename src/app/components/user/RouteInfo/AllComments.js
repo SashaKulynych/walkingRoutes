@@ -21,6 +21,7 @@ export default class AllComments extends Component {
         const listView = list.map((data)=> {
             return (
                 <ul className="list-group mt-3" key={data.id}>
+                    <div className="text-right">{data.date}</div>
                     <li className="list-group-item">User: {fetchName(data.user,"users","email")}</li>
                     <li className="list-group-item">Description: {data.description}</li>
                     <li className="list-group-item">Rating: {data.rating}</li>

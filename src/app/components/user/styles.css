@@ -147,6 +147,7 @@
     display:block;
     overflow:auto;
 }
+.MainBlock .FirstBlock::-webkit-scrollbar { width: 0; }
 .MainBlock .SecondBlock{
     -webkit-box-flex: 3;
     -webkit-flex: 3;

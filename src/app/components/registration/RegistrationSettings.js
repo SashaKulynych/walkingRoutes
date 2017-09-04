@@ -49,10 +49,15 @@ export default class Registration extends Component {
                             "password": this.state.password
                         })
                     );
+                    this.msg.show('you are registered, please login!', {
+                        time: 3000,
+                        type: 'success'
+                    });
                 }
             }
         };
         http.send();
+
     }
     changeEmail(event){
         this.setState({email: event.target.value});

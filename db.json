@@ -2,13 +2,18 @@
   "users": [
     {
       "email": "sasha@mail.ru",
-      "password": "111",
+      "password": "sasha",
       "id": 1
     },
     {
-      "email": "aaa@aa.aaa",
-      "password": "aaa",
+      "email": "hi@mail.hi",
+      "password": "hi",
       "id": 2
+    },
+    {
+      "email": "my@email.ru",
+      "password": "my",
+      "id": 3
     }
   ],
   "categories": [
@@ -17,340 +22,375 @@
       "id": 1
     },
     {
-      "name": "Cat2",
+      "name": "Driving",
       "id": 2
     }
   ],
   "routes": [
     {
-      "name": "asdfghjkl",
-      "description": "hftjkhse",
+      "name": "My first route",
+      "description": "My first route",
       "category": "1",
       "length": "",
       "markers": [
         {
           "position": {
-            "lat": 49.44497036527659,
-            "lng": 32.04561710357666
+            "lat": 49.44714672102774,
+            "lng": 32.05308437347412
           },
-          "key": 1504523474599
+          "key": 1504533246882
         },
         {
           "position": {
-            "lat": 49.44524939064351,
-            "lng": 32.02888011932373
+            "lat": 49.43877559320942,
+            "lng": 32.04166889190674
           },
-          "key": 1504523474987
-        },
-        {
-          "position": {
-            "lat": 49.439166277631344,
-            "lng": 32.03136920928955
-          },
-          "key": 1504523475395
-        },
-        {
-          "position": {
-            "lat": 49.43832909291617,
-            "lng": 32.045016288757324
-          },
-          "key": 1504523475760
-        },
-        {
-          "position": {
-            "lat": 49.43855234357095,
-            "lng": 32.05857753753662
-          },
-          "key": 1504523476209
+          "key": 1504533248164
         }
       ],
       "flightPlanCoordinates": [
         {
-          "lat": 49.44497036527659,
-          "lng": 32.04561710357666
+          "lat": 49.44714672102774,
+          "lng": 32.05308437347412
         },
         {
-          "lat": 49.44524939064351,
-          "lng": 32.02888011932373
+          "lat": 49.43877559320942,
+          "lng": 32.04166889190674
+        }
+      ],
+      "user": 1,
+      "id": 1
+    },
+    {
+      "name": "My second route",
+      "description": "My second route",
+      "category": "1",
+      "length": "",
+      "markers": [
+        {
+          "position": {
+            "lat": 49.44714672102774,
+            "lng": 32.05308437347412
+          },
+          "key": 1504533246882
         },
         {
-          "lat": 49.439166277631344,
-          "lng": 32.03136920928955
+          "position": {
+            "lat": 49.43877559320942,
+            "lng": 32.04166889190674
+          },
+          "key": 1504533248164
         },
         {
-          "lat": 49.43832909291617,
-          "lng": 32.045016288757324
+          "position": {
+            "lat": 49.45049477200476,
+            "lng": 32.044243812561035
+          },
+          "key": 1504533284571
         },
         {
-          "lat": 49.43855234357095,
-          "lng": 32.05857753753662
+          "position": {
+            "lat": 49.44630967255629,
+            "lng": 32.03197002410889
+          },
+          "key": 1504533285633
+        },
+        {
+          "position": {
+            "lat": 49.45250349283822,
+            "lng": 32.03145503997803
+          },
+          "key": 1504533286309
+        },
+        {
+          "position": {
+            "lat": 49.452224508755876,
+            "lng": 32.02656269073486
+          },
+          "key": 1504533286885
+        }
+      ],
+      "flightPlanCoordinates": [
+        {
+          "lat": 49.44714672102774,
+          "lng": 32.05308437347412
+        },
+        {
+          "lat": 49.43877559320942,
+          "lng": 32.04166889190674
+        },
+        {
+          "lat": 49.45049477200476,
+          "lng": 32.044243812561035
+        },
+        {
+          "lat": 49.44630967255629,
+          "lng": 32.03197002410889
+        },
+        {
+          "lat": 49.45250349283822,
+          "lng": 32.03145503997803
+        },
+        {
+          "lat": 49.452224508755876,
+          "lng": 32.02656269073486
         }
       ],
       "user": 1,
       "id": 2
     },
     {
-      "name": "awdefrgthyju",
-      "description": "sefgfthg",
+      "name": "My third route",
+      "description": "My third route",
       "category": "2",
       "length": "",
       "markers": [
         {
           "position": {
-            "lat": 49.44999257893482,
-            "lng": 32.04355716705322
+            "lat": 49.455293246330854,
+            "lng": 32.03016757965088
           },
-          "key": 1504523521977
+          "key": 1504535500609
         },
         {
           "position": {
-            "lat": 49.44524939064351,
-            "lng": 32.03969478607178
+            "lat": 49.450438973028824,
+            "lng": 32.03806400299072
           },
-          "key": 1504523522457
+          "key": 1504535501511
         },
         {
           "position": {
-            "lat": 49.43883140546025,
-            "lng": 32.05188274383545
+            "lat": 49.446253868816726,
+            "lng": 32.046217918395996
           },
-          "key": 1504523523350
+          "key": 1504535502558
         },
         {
           "position": {
-            "lat": 49.43648723623616,
-            "lng": 32.066216468811035
+            "lat": 49.449322980172084,
+            "lng": 32.0505952835083
           },
-          "key": 1504523523818
+          "key": 1504535503935
         }
       ],
       "flightPlanCoordinates": [
         {
-          "lat": 49.44999257893482,
-          "lng": 32.04355716705322
+          "lat": 49.455293246330854,
+          "lng": 32.03016757965088
         },
         {
-          "lat": 49.44524939064351,
-          "lng": 32.03969478607178
+          "lat": 49.450438973028824,
+          "lng": 32.03806400299072
         },
         {
-          "lat": 49.43883140546025,
-          "lng": 32.05188274383545
+          "lat": 49.446253868816726,
+          "lng": 32.046217918395996
         },
         {
-          "lat": 49.43648723623616,
-          "lng": 32.066216468811035
+          "lat": 49.449322980172084,
+          "lng": 32.0505952835083
         }
       ],
       "user": 1,
       "id": 3
     },
     {
-      "name": "qqqqqq",
-      "description": "wefedsdsz",
+      "name": "First hi route",
+      "description": "First hi route",
       "category": "1",
       "length": "",
       "markers": [
         {
           "position": {
-            "lat": 49.452057117544314,
-            "lng": 32.05392122268677
+            "lat": 49.44491456001265,
+            "lng": 32.029738426208496
           },
-          "key": 1504530278863
+          "key": 1504535612321
         },
         {
           "position": {
-            "lat": 49.44524939064351,
-            "lng": 32.038986682891846
+            "lat": 49.43838490567516,
+            "lng": 32.041497230529785
           },
-          "key": 1504530279467
+          "key": 1504535612936
         },
         {
           "position": {
-            "lat": 49.439724392835,
-            "lng": 32.04619646072388
+            "lat": 49.44686770645847,
+            "lng": 32.05402851104736
           },
-          "key": 1504530280244
+          "key": 1504535613689
         },
         {
           "position": {
-            "lat": 49.43849653100255,
-            "lng": 32.05177545547485
+            "lat": 49.43721282439784,
+            "lng": 32.071709632873535
           },
-          "key": 1504530280780
-        },
-        {
-          "position": {
-            "lat": 49.437603521269345,
-            "lng": 32.06430673599243
-          },
-          "key": 1504530281270
-        },
-        {
-          "position": {
-            "lat": 49.435259293353866,
-            "lng": 32.07082986831665
-          },
-          "key": 1504530281830
+          "key": 1504535614499
         }
       ],
       "flightPlanCoordinates": [
         {
-          "lat": 49.452057117544314,
-          "lng": 32.05392122268677
+          "lat": 49.44491456001265,
+          "lng": 32.029738426208496
         },
         {
-          "lat": 49.44524939064351,
-          "lng": 32.038986682891846
+          "lat": 49.43838490567516,
+          "lng": 32.041497230529785
         },
         {
-          "lat": 49.439724392835,
-          "lng": 32.04619646072388
+          "lat": 49.44686770645847,
+          "lng": 32.05402851104736
         },
         {
-          "lat": 49.43849653100255,
-          "lng": 32.05177545547485
-        },
-        {
-          "lat": 49.437603521269345,
-          "lng": 32.06430673599243
-        },
-        {
-          "lat": 49.435259293353866,
-          "lng": 32.07082986831665
+          "lat": 49.43721282439784,
+          "lng": 32.071709632873535
         }
       ],
       "user": 2,
       "id": 4
+    },
+    {
+      "name": "Second hi route",
+      "description": "Second hi route",
+      "category": "2",
+      "length": "",
+      "markers": [
+        {
+          "position": {
+            "lat": 49.4448587546852,
+            "lng": 32.02930927276611
+          },
+          "key": 1504535635831
+        },
+        {
+          "position": {
+            "lat": 49.4459748491662,
+            "lng": 32.03171253204346
+          },
+          "key": 1504535636359
+        },
+        {
+          "position": {
+            "lat": 49.44809535868591,
+            "lng": 32.02733516693115
+          },
+          "key": 1504535636881
+        },
+        {
+          "position": {
+            "lat": 49.44988097977616,
+            "lng": 32.02381610870361
+          },
+          "key": 1504535637331
+        },
+        {
+          "position": {
+            "lat": 49.4535078223873,
+            "lng": 32.02682018280029
+          },
+          "key": 1504535638047
+        },
+        {
+          "position": {
+            "lat": 49.44926717986236,
+            "lng": 32.03531742095947
+          },
+          "key": 1504535639503
+        }
+      ],
+      "flightPlanCoordinates": [
+        {
+          "lat": 49.4448587546852,
+          "lng": 32.02930927276611
+        },
+        {
+          "lat": 49.4459748491662,
+          "lng": 32.03171253204346
+        },
+        {
+          "lat": 49.44809535868591,
+          "lng": 32.02733516693115
+        },
+        {
+          "lat": 49.44988097977616,
+          "lng": 32.02381610870361
+        },
+        {
+          "lat": 49.4535078223873,
+          "lng": 32.02682018280029
+        },
+        {
+          "lat": 49.44926717986236,
+          "lng": 32.03531742095947
+        }
+      ],
+      "user": 2,
+      "id": 5
     }
   ],
   "comments": [
     {
-      "route": 1,
-      "description": "sdsdasdasda",
-      "user": 1,
+      "route": 4,
+      "description": "dfawawfa",
+      "user": 2,
+      "rating": 5,
+      "date": "2017-09-04T13:45:46.105Z",
       "id": 1
     },
     {
-      "route": 1,
-      "description": "sadfghjk",
-      "user": 1,
+      "route": 4,
+      "description": "aadasddsa",
+      "user": 2,
+      "rating": 8,
+      "date": "2017-09-04T13:47:39.909Z",
       "id": 2
     },
     {
       "route": 1,
-      "description": "sadsfgssfsdfsf",
+      "description": "good route",
       "user": 1,
+      "rating": 5,
+      "date": "2017-09-04T14:29:39.314Z",
       "id": 3
     },
     {
-      "route": 2,
-      "description": "sadsfgdhftyjuklkhfg",
-      "user": 1,
+      "route": 1,
+      "description": "Good route",
+      "user": 2,
+      "rating": 7,
+      "date": "2017-09-04T14:35:32.105Z",
       "id": 4
     },
     {
-      "route": 1,
-      "description": "swadefrgthyjuk",
-      "user": 1,
-      "rating": 4,
+      "route": 3,
+      "description": "Good route",
+      "user": 2,
+      "rating": 10,
+      "date": "2017-09-04T14:36:19.802Z",
       "id": 5
     },
     {
-      "route": 1,
-      "description": "fsghtfh",
-      "user": 1,
-      "rating": 6,
+      "route": 2,
+      "description": "Good route",
+      "user": 2,
+      "rating": 4,
+      "date": "2017-09-04T14:36:26.401Z",
       "id": 6
     },
     {
-      "route": 1,
-      "description": "fsghtfhfsghssfe",
-      "user": 1,
-      "rating": 6,
+      "route": 5,
+      "description": "Good route",
+      "user": 2,
+      "rating": 9,
+      "date": "2017-09-04T14:36:30.055Z",
       "id": 7
-    },
-    {
-      "route": 1,
-      "description": "dffdsfdsfdsfsd",
-      "user": 1,
-      "rating": 6,
-      "id": 8
-    },
-    {
-      "route": 1,
-      "description": "ewrgthyjukilo",
-      "user": 2,
-      "rating": 5,
-      "id": 9
-    },
-    {
-      "route": 1,
-      "description": "wfegrhrsecas",
-      "user": 1,
-      "rating": 6,
-      "id": 10
-    },
-    {
-      "route": 2,
-      "description": "dfsgdbnhm,j",
-      "user": 2,
-      "rating": 3,
-      "id": 11
-    },
-    {
-      "route": 3,
-      "description": "dfvgbhj,k.l",
-      "user": 2,
-      "rating": 5,
-      "id": 12
-    },
-    {
-      "route": 2,
-      "description": "sdefrgthyjukio",
-      "user": 2,
-      "rating": 1,
-      "id": 13
-    },
-    {
-      "route": 2,
-      "description": "defgrfhtyju",
-      "user": 2,
-      "rating": 5,
-      "id": 14
-    },
-    {
-      "route": 2,
-      "description": "dgfh",
-      "user": 2,
-      "rating": 1,
-      "id": 15
-    },
-    {
-      "route": 3,
-      "description": "ojl'oj'oj';oo;l",
-      "user": 2,
-      "rating": 6,
-      "id": 16
-    },
-    {
-      "route": 2,
-      "description": "dsadasasasdad",
-      "user": 2,
-      "rating": 4,
-      "id": 17
-    },
-    {
-      "route": 3,
-      "description": "wewedqwqwqw",
-      "user": 2,
-      "rating": 4,
-      "id": 18
     }
   ],
   "favorites": [
     {
-      "route": 2,
+      "route": 1,
       "id": 1
     },
     {

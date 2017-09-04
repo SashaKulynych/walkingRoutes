@@ -66,13 +66,13 @@ class UserPage extends Component {
         if (value != null) {
             store.dispatch({type: 'USER_SUCCESS', payload: value});
         } else store.dispatch(push('/'));
+
         this.setState({userInfo:value});
         this.myRoutes(value);
         this.resourceList('categories');
         this.resourceList('routes');
         this.resourceList('favorites');
     }
-
     exit() {
         localStorage.setItem('USER_SUCCESS', null);
         store.dispatch(push('/'));
@@ -95,7 +95,7 @@ class UserPage extends Component {
     }
 
     handleCheckboxFavorite(event){
-        checkBoxFavorite(this.state.checkedRouteId);
+        checkBoxFavorite(this.state.checkedRouteId,this.state.userInfo);
         this.resourceList('favorites');
         this.setState({
             favorite: event.target.checked
@@ -150,7 +150,8 @@ class UserPage extends Component {
             markers: routeData.markers,
             flightPlanCoordinates:routeData.flightPlanCoordinates ,
             favorite: routeData.favorite,
-            commentTextarea:""
+            commentTextarea:"",
+            rating:1
         })
     }
     myRoutes(value){
@@ -272,7 +273,8 @@ class UserPage extends Component {
                     "route": this.state.checkedRouteId,
                     "description": this.state.commentTextarea,
                     "user":this.state.userInfo.id,
-                    "rating":this.state.rating
+                    "rating":this.state.rating,
+                    "date":new Date()
                 })
             );
             this.msg.show('Comment Add', {
