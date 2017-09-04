@@ -134,8 +134,9 @@
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
-    position: relative;
-    min-height: 100vh;
+    position:absolute;
+    width:100%;
+    height:100%;
 }
 .MainBlock .FirstBlock{
     -webkit-box-flex: 1;
@@ -143,6 +144,8 @@
     -ms-flex: 1;
     flex: 1;
     background-color: #2e353d;
+    display:block;
+    overflow:auto;
 }
 .MainBlock .SecondBlock{
     -webkit-box-flex: 3;
